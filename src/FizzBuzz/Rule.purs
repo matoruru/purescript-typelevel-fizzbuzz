@@ -20,25 +20,25 @@ data RProxy (r :: Result) = RProxy
 class Result (n :: Nat) (r :: Result) | n -> r where
   toResult :: NProxy n -> RProxy r -> Array String
 
-instance      getResultByZero ::                                                   Result (Succ Zero) r' where
+instance      resultByZero ::                                                   Result (Succ Zero) r' where
   toResult _ _ = []
 
-else instance getResultByN    :: (Nat n, ShowFizzBuzz r, Result n r, Judge n r) => Result (Succ n)    r' where
+else instance resultByN    :: (Nat n, ShowFizzBuzz r, Result n r, Judge n r) => Result (Succ n)    r' where
   toResult _ _ = show (RProxy :: RProxy r) (toInt (NProxy :: NProxy n)) : toResult (NProxy :: NProxy n) (judge (NProxy :: NProxy n))
 
 class ShowFizzBuzz (r :: Result) where
   show :: RProxy r -> Int -> String
 
-instance showFizz     :: ShowFizzBuzz Fizz where
+instance showFizz     :: ShowFizzBuzz Fizz     where
   show _ _ = "Fizz"
 
-instance showBuzz     :: ShowFizzBuzz Buzz where
+instance showBuzz     :: ShowFizzBuzz Buzz     where
   show _ _ = "Buzz"
 
 instance showFizzBuzz :: ShowFizzBuzz FizzBuzz where
   show _ _ = "Fizz-Buzz"
 
-instance showNumber   :: ShowFizzBuzz Number where
+instance showNumber   :: ShowFizzBuzz Number   where
   show _   = S.show
 
 class Judge (n :: Nat) (r :: Result) | n -> r
