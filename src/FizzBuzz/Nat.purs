@@ -12,7 +12,7 @@ data NProxy (n :: Nat) = NProxy
 class Nat (n :: Nat) where
   toInt :: NProxy n -> Int
 
-instance natZero :: Nat Zero where
+instance natZero ::          Nat Zero     where
   toInt _ = 0
 
 instance natSucc :: Nat n => Nat (Succ n) where
