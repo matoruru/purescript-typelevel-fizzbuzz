@@ -5,8 +5,17 @@ import FizzBuzz
 runFizzBuzz :: forall n r. Nat n => Result n r => NProxy n -> Array String
 runFizzBuzz n = toResult n RProxy
 
+class Succ3   (n :: Nat) (n' :: Nat) | n -> n'
+instance succ3   :: Succ3  n (Succ (Succ (Succ n)))
+
+class Succ5   (n :: Nat) (n' :: Nat) | n -> n'
+instance succ5   :: Succ5  n (Succ (Succ (Succ (Succ (Succ n)))))
+
 class Succ10  (n :: Nat) (n' :: Nat) | n -> n'
 instance succ10  :: Succ10 n (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ n))))))))))
+
+class Succ15  (n :: Nat) (n' :: Nat) | n -> n'
+instance succ15  :: (Succ10 n n' , Succ5   n' n'') => Succ15  n n''
 
 class Succ50  (n :: Nat) (n' :: Nat) | n -> n'
 instance succ50  :: (Succ10 n n1, Succ10 n1 n2, Succ10 n2 n3, Succ10 n3 n4, Succ10 n4 n5) => Succ50 n n5
