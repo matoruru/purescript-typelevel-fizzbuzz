@@ -1,10 +1,10 @@
 module Main where
 
-import FizzBuzz
-import Prelude
-
 import Effect (Effect)
 import Effect.Console (log, logShow)
+import FizzBuzz (NProxy(..), Succ, Zero)
+import Prelude (Unit, discard, ($))
+import Util (class Succ10, class Succ50, class Succ100, class Succ200, runFizzBuzz)
 
 main :: Effect Unit
 main = do
