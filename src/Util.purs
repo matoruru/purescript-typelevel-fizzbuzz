@@ -6,22 +6,22 @@ runFizzBuzz :: forall n r. Nat n => Result n r => NProxy n -> Array String
 runFizzBuzz n = toResult n RProxy
 
 class Succ3   (n :: Nat) (n' :: Nat) | n -> n'
-instance succ3   :: Succ3  n (Succ (Succ (Succ n)))
+instance succ3   :: Succ3 n (Succ (Succ (Succ n)))
 
 class Succ5   (n :: Nat) (n' :: Nat) | n -> n'
-instance succ5   :: Succ5  n (Succ (Succ (Succ (Succ (Succ n)))))
+instance succ5   :: Succ5 n (Succ (Succ (Succ (Succ (Succ n)))))
 
 class Succ10  (n :: Nat) (n' :: Nat) | n -> n'
-instance succ10  :: Succ10 n (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ n))))))))))
+instance succ10  :: (Succ5 n n', Succ5 n' n'') => Succ10 n n''
 
 class Succ15  (n :: Nat) (n' :: Nat) | n -> n'
-instance succ15  :: (Succ10 n n' , Succ5   n' n'') => Succ15  n n''
+instance succ15  :: (Succ10 n n', Succ5 n' n'') => Succ15  n n''
 
 class Succ50  (n :: Nat) (n' :: Nat) | n -> n'
-instance succ50  :: (Succ10 n n1, Succ10 n1 n2, Succ10 n2 n3, Succ10 n3 n4, Succ10 n4 n5) => Succ50 n n5
+instance succ50  :: (Succ15 n n1, Succ15 n1 n2, Succ15 n2 n3, Succ5 n3 n4) => Succ50 n n4
 
 class Succ100 (n :: Nat) (n' :: Nat) | n -> n'
-instance succ100 :: (Succ50 n n' , Succ50  n' n'') => Succ100 n n''
+instance succ100 :: (Succ50 n n', Succ50 n' n'') => Succ100 n n''
 
 class Succ200 (n :: Nat) (n' :: Nat) | n -> n'
 instance succ200 :: (Succ100 n n', Succ100 n' n'') => Succ200 n n''
